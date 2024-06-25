@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fr">
+<html data-theme="light" lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -16,6 +16,12 @@
     <main class="container-fluid">
         <div class="title">
             <h1>Mynotor Minecraft</h1>
+            <fieldset x-data="{ mode: 'Light' }">
+                <label>
+                    Mode: <span x-text="mode"></span>
+                    <input name="mode" type="checkbox" role="switch" />
+                </label>
+            </fieldset>
         </div>
         <div class="content" x-data="{ open: false }">
             <div role="group" class="view-switcher">
@@ -23,10 +29,54 @@
                 <button @click="open = false" :class="!open ? '' : 'outline'">Inspect</button>
             </div>
             <div class="create"  x-show="open">
-                Creator
+                <div class="content-title">
+                    Creator
+                </div>
+                <div class="grid">
+                    <div>
+                        Form
+                    </div>
+                </div>
             </div>
             <div class="inspect" :class="!open ? '' : 'outline'" x-show="!open">
-                Inspector
+                <div class="content-title">
+                    Inspector
+                </div>
+                <div class="grid">
+                   <div>
+                       <table class="table striped">
+                           <thead>
+                           <tr>
+                               <th scope="col" class="Name">Name</th>
+                               <th scope="col" class="image">Image</th>
+                               <th scope="col" class="ports">Network</th>
+                               <th scope="col" class="state">State</th>
+                               <th scope="col" class="status">Status</th>
+                               <th scope="col" class="action">Action</th>
+                           </tr>
+                           </thead>
+
+                           <tbody>
+                           {{ range .Containers }}
+                           <tr>
+                               <td>{{ .Name }}</td>
+                               <td>{{ .Image }}</td>
+                               <td>
+                                   {{ range .Ports }}
+                                   {{ .IP }} - {{ .PrivatePort }}:{{ .PublicPort }}
+                                   {{ end }}
+                               </td>
+                               <td>{{ .State }}</td>
+                               <td>{{ .Status }}</td>
+                               <td>
+                                   Action
+                               </td>
+                           </tr>
+                           {{ end }}
+                           </tbody>
+                       </table>
+                   </div>
+                </div>
             </div>
         </div>
     </main>
@@ -35,6 +85,17 @@
     body > main > div.content > div.view-switcher{
         margin-top: 35px;
         width: 27%;
+    }
+    body > main > div.title {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+
+    body > main > div.title > fieldset {
+        text-align: right;
+        text-align: -webkit-right;
     }
 </style>
 </html>
