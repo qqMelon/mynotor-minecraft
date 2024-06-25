@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <title>Mynotor Minecraft</title>
+</head>
+<body>
+    <main class="container-fluid">
+        <div class="title">
+            <h1>Mynotor Minecraft</h1>
+        </div>
+        <div class="content" x-data="{ open: false }">
+            <div role="group" class="view-switcher">
+                <button @click="open = true" :class="open ? '' : 'outline'">Create</button>
+                <button @click="open = false" :class="!open ? '' : 'outline'">Inspect</button>
+            </div>
+            <div class="create"  x-show="open">
+                Creator
+            </div>
+            <div class="inspect" :class="!open ? '' : 'outline'" x-show="!open">
+                Inspector
+            </div>
+        </div>
+    </main>
+</body>
+<style>
+    body > main > div.content > div.view-switcher{
+        margin-top: 35px;
+        width: 27%;
+    }
+</style>
+</html>
