@@ -1,5 +1,5 @@
 <!doctype html>
-<html data-theme="light" lang="fr">
+<html id="html" data-theme="light" lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -16,10 +16,10 @@
     <main class="container-fluid">
         <div class="title">
             <h1>Mynotor Minecraft</h1>
-            <fieldset x-data="{ mode: 'Light' }">
+            <fieldset x-data="{ isDark: false }">
                 <label>
-                    Mode: <span x-text="mode"></span>
-                    <input name="mode" type="checkbox" role="switch" />
+                    Mode: <span x-text="isDark ? 'Dark' : 'Light'"></span>
+                    <input name="mode" id="switch-theme" type="checkbox" role="switch" x-model="isDark" />
                 </label>
             </fieldset>
         </div>
@@ -28,7 +28,7 @@
                 <button @click="open = true" :class="open ? '' : 'outline'">Create</button>
                 <button @click="open = false" :class="!open ? '' : 'outline'">Inspect</button>
             </div>
-            <div class="create"  x-show="open">
+            <div class="create" x-show="open">
                 <div class="content-title">
                     Creator
                 </div>
@@ -80,6 +80,17 @@
             </div>
         </div>
     </main>
+<script lang="js">
+    const page = document.getElementById('html');
+    let switchTheme = document.getElementById('switch-theme');
+    let darkTheme = false;
+    switchTheme.addEventListener("input", (event) => {
+      if (event) {
+        darkTheme = !darkTheme;
+        page.setAttribute("data-theme", `${darkTheme ? 'dark': 'light'}`);
+      }
+    });
+</script>
 </body>
 <style>
     body > main > div.content > div.view-switcher{
